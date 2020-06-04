@@ -1,8 +1,6 @@
 const express = require('express');
-const http = require('http');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
 const route = require('./src/routes/index');
@@ -25,7 +23,7 @@ app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:500
 app.use(express.static(path.join(__dirname, 'public')));
 
 // This is our route middleware
-app.use('/api', routeV1);
+app.use('/api', route);
 
 // Error handling
 app.use(response.handleError);
@@ -33,17 +31,8 @@ app.use(response.handleError);
 // Handle response
 app.use(response.handleSuccess);
 
-// Configuring the database
-mongoose.connect('mongodb://phpmasters:phpmasters123@ds147073.mlab.com:47073/reg_db',{ useNewUrlParser: true}, function(err){
-    if(err)
-    {
-        throw err;
-    }
-})
-
-
-app.listen(8000, () => {
-  console.log('Example app listening on port 8000!')
+app.listen(8080, () => {
+  console.log('Example app listening on port 8080!')
 });
 
 module.exports = app;

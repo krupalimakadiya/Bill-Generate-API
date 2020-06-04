@@ -3,10 +3,9 @@
  * This file modifies the request-response of the app.
  * What should do before request execute and what should do after request execution complete.
  */
-var debug = require('debug')('API:RequestResponse');
-var Boom = require('boom');
-var _ = require('lodash');
-var Utils = require('./utils/Utils');
+const debug = require('debug')('API:RequestResponse');
+const Boom = require('boom');
+const _ = require('lodash');
 
 exports.trimParams = function (req, res, next) {
   //console.log('req', req)
@@ -29,9 +28,6 @@ exports.trimParams = function (req, res, next) {
       }
     }
   }
-  //debug('req.body : %o ', req.body);  
-  //debug('req.query : %o ', req.query);
-  //debug('req.params: %o', req.params);
   next();
 };
 
@@ -46,7 +42,7 @@ exports.handleError = function (err, req, res, next) {
   if (!err) {
     return next();
   }
-  var errorResponse = {
+  const errorResponse = {
     error: _.merge({
       stack: err.stack
     }, err.output && err.output.payload ? err.output.payload : err)
